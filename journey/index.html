@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Client Journey Map</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+/* Layout: one horizontal process line (ink), templates hang under each step in the accent colour. */
+:root{
+  --bg:#fcfcfd; --fg:#121214; --muted:#686873; --line:#121214; --border:#e4e4ea; --panel:#f4f4f7;
+  --accent:#5a3df0; --accent-ink:#ffffff; --accent-soft:rgba(90,61,240,.10); --accent-edge:rgba(90,61,240,.45);
+  --font:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141416; --fg:#f2f2f5; --muted:#a2a2ae; --line:#f2f2f5; --border:#2c2c33; --panel:#1c1c21;
+  --accent:#a99bff; --accent-ink:#141416; --accent-soft:rgba(169,155,255,.14); --accent-edge:rgba(169,155,255,.5); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141416; --fg:#f2f2f5; --muted:#a2a2ae; --line:#f2f2f5; --border:#2c2c33; --panel:#1c1c21;
+  --accent:#a99bff; --accent-ink:#141416; --accent-soft:rgba(169,155,255,.14); --accent-edge:rgba(169,155,255,.5); color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);padding-inline:16px;padding-block:28px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+h1{font-size:22px;margin:0;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+.sub{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.5;max-width:68ch}
+.legend{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:12px;color:var(--muted);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.k{width:12px;height:12px;border-radius:50%;box-sizing:border-box;border:2px solid var(--line);flex:none}
+.k.fill{background:var(--line)} .k.dash{border-style:dashed}
+.k.rep{box-shadow:0 0 0 3px var(--bg),0 0 0 4.5px var(--line)}
+.chip{display:inline-flex;align-items:baseline;gap:6px;font-size:12px;line-height:1.3;padding:5px 8px;border-radius:6px;border:1px solid var(--accent);text-decoration:none;color:var(--fg);max-width:100%;box-sizing:border-box}
+.chip b{font-size:9px;letter-spacing:.08em;font-weight:700;flex:none}
+.chip.doc{background:var(--accent);color:var(--accent-ink)}
+.chip.mail{background:var(--accent-soft);border-color:var(--accent-edge)}
+.chip.me{background:transparent}
+.chip.form{background:transparent;border-style:dashed}
+a.chip:hover{filter:brightness(1.12);outline:2px solid var(--accent);outline-offset:1px}
+.chip.doc b{opacity:.85}
+.chip.mail b,.chip.me b,.chip.form b{color:var(--accent)}
+.legend .chip{pointer-events:none}
+.scroll{overflow-x:auto;padding-bottom:14px;border-top:1px solid var(--border)}
+.map{display:flex;gap:28px;width:max-content;padding-top:18px}
+.phase{display:flex;flex-direction:column;gap:14px}
+.phead{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:2px solid var(--border);padding-bottom:6px}
+.phead em{font-style:normal;color:var(--fg)}
+.steps{display:flex}
+.step{width:178px;flex:none;position:relative;display:flex;flex-direction:column;gap:10px;padding-top:0}
+.step.wide{width:250px}
+.step::before{content:"";position:absolute;top:8px;left:0;right:0;height:2px;background:var(--line)}
+.step.first::before{left:50%}
+.step.last::before{right:50%}
+.dotrow{height:18px;display:flex;justify-content:center;position:relative;z-index:1}
+.dot{width:18px;height:18px;border-radius:50%;box-sizing:border-box;border:2px solid var(--line);background:var(--bg)}
+.dot.fill{background:var(--line)} .dot.dash{border-style:dashed}
+.dot.rep{box-shadow:0 0 0 3px var(--bg),0 0 0 4.5px var(--line)}
+.sname{font-weight:700;font-size:14px;text-align:center;padding-inline:8px;line-height:1.25}
+.smeta{font-size:12px;color:var(--muted);text-align:center;padding-inline:8px;margin-top:-6px;line-height:1.35}
+.crm{align-self:center;font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--muted);border:1px solid var(--border);background:var(--panel);border-radius:99px;padding:3px 8px}
+.chips{display:flex;flex-direction:column;gap:6px;align-items:flex-start;padding-inline:8px}
+.act{font-size:12px;line-height:1.35;padding-inline:8px;color:var(--fg)}
+.act b{font-size:9px;letter-spacing:.08em;color:var(--muted);margin-right:6px}
+.note{font-size:12px;color:var(--muted);line-height:1.4;padding-inline:8px;border-left:2px solid var(--border);margin-inline:8px}
+.subs{margin:0;padding:0 8px;list-style:none;display:flex;flex-direction:column;gap:0}
+.subs li{position:relative;font-size:12px;line-height:1.35;padding:0 0 9px 20px}
+.subs li::before{content:"";position:absolute;left:4px;top:5px;bottom:-5px;width:1.5px;background:var(--border)}
+.subs li:last-child::before{display:none}
+.subs li::after{content:"";position:absolute;left:0;top:4px;width:9px;height:9px;border-radius:50%;box-sizing:border-box;border:1.5px solid var(--line);background:var(--bg)}
+.sep{font-size:11px;color:var(--muted);text-align:center;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.any{display:flex;flex-direction:column;gap:12px;background:var(--panel);border-radius:12px;padding:16px 18px}
+.any h2{margin:0;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.any .row{display:flex;flex-wrap:wrap;gap:8px}
+.any p{margin:0;font-size:13px;color:var(--muted);line-height:1.5;max-width:75ch}
+.hint{font-size:12px;color:var(--muted)}
+html.embed header,html.embed .hint{display:none}
+html.embed body{padding-block:6px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Client journey map</h1>
+    <p class="sub">The whole path from a request to the final files. The line is the process. Everything hanging under a step is a template you use at that moment. Click a template to open it in Notion.</p>
+  </header>
+
+  <div class="legend" id="legend"></div>
+
+  <div>
+    <div class="hint">Scroll sideways to follow the line.</div>
+    <div class="scroll"><div class="map" id="map"></div></div>
+  </div>
+
+  <section class="any" id="any"></section>
+</div>
+
+<script>
+if(/[?&]embed/.test(location.search))document.documentElement.classList.add("embed");
+var N='https://app.notion.com/p/';
+var T={
+  inquiry:['mail','New inquiry received (auto-reply)',N+'3f791e5d1d648179be51c1c23eaba5a0'],
+  lead:['me','New lead in the CRM',N+'3f791e5d1d64816ba64cee32d50c7520'],
+  disc:['form','Discovery call questionnaire (link, made in Notion)',null],
+  minutes:['doc','Discovery call minutes',N+'3f791e5d1d6481a4889eef38a2e5071d'],
+  dfollow:['mail','Discovery call follow-up',N+'3f791e5d1d6481c19797e987ceca9494'],
+  pmail:['mail','Proposal email',N+'3f791e5d1d648178b7c0fbcf56064c69'],
+  cmail:['mail','Contract email',N+'3f791e5d1d6481cf9df8c16cb240d258'],
+  proposal2:['doc','Proposal',N+'3f791e5d1d6481ffbad5d199d9fb469c'],
+  proposal:['doc','Proposal',N+'3f791e5d1d6481ffbad5d199d9fb469c'],
+  contract:['doc','Contract',N+'3f791e5d1d6481f8aeb8cb3aff18aeae'],
+  terms:['doc','Terms and conditions',N+'3f791e5d1d648174962ef2d4f0dff4dd'],
+  deposit:['doc','Deposit invoice',N+'3f791e5d1d64816d9500df443455f38f'],
+  balance:['doc','Balance invoice',N+'3f791e5d1d6481f7a3dfc4eda8cb8ba2'],
+  sent:['mail','Invoice sent',N+'3f791e5d1d6481fb89adc5f5e3a59b8e'],
+  remind:['mail','Payment reminder and overdue notice',N+'3f791e5d1d6481c48ac3e37d7d605c9f'],
+  thanks:['mail','Payment received, thank you',N+'3f791e5d1d64811e8e2cfb78a29487ce'],
+  receipt:['doc','Receipt / payment confirmation',N+'3f791e5d1d6481a7bd88e6f8d5141d1e'],
+  paid:['me','Invoice paid / overdue',N+'3f791e5d1d6481d992eed82ee2c963bd'],
+  welcome:['mail','Welcome and your client space link',N+'3f791e5d1d648188b7c0e801610a92b8'],
+  onboard:['form','Onboarding questionnaire (link, made in Notion)',null],
+  miles:['doc','Project timeline milestones per package',N+'3f791e5d1d64815f8839e60b76353a35'],
+  stepdone:['mail','Step completed / timeline update',N+'3f791e5d1d648113945dc7dd0a1bbf7e'],
+  fbrem:['mail','Feedback reminder',N+'3f791e5d1d6481f3953ccab1d01e61da'],
+  handover:['doc','Project completion and handover note',N+'3f791e5d1d6481c99e7dc6830219d639'],
+  delivered:['mail','Project delivered',N+'3f791e5d1d648127a679f37306025f90'],
+  testi:['mail','Feedback / testimonial request',N+'3f791e5d1d64813b93e5da17042775ec'],
+  change:['doc','Change request / add-on agreement',N+'3f791e5d1d648167b8c9d61c321811b9'],
+  silent:['me','Client has not replied in X days',N+'3f791e5d1d64817da03bf2bda9dc929b'],
+  deadline:['me','Deadline coming up',N+'3f791e5d1d64813fbd75c88797945c89'],
+  weekly:['me','Weekly summary',N+'3f791e5d1d6481559a26d15a7166a2a1'],
+  tone:['doc','Tone and rules',N+'3f791e5d1d648174b6decb214dd85dd3']
+};
+var TAG={doc:'DOC',mail:'MAIL',me:'ME',form:'FORM'};
+function chip(k){
+  var t=T[k],a=document.createElement(t[2]?'a':'span');
+  a.className='chip '+t[0];
+  if(t[2]){a.href=t[2];a.target='_blank';a.rel='noopener'}
+  var b=document.createElement('b');b.textContent=TAG[t[0]];
+  var s=document.createElement('span');s.textContent=t[1];
+  a.appendChild(b);a.appendChild(s);return a;
+}
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+
+var phases=[
+ {head:['Before the client space','tracked as the CRM status'],steps:[
+  {n:'Request form',m:'Prospect fills the form',crm:'New request',t:['disc','inquiry','lead']},
+  {n:'Discovery call',m:'45 minutes',crm:'Call booked',t:['minutes','dfollow'],note:'The minutes help me write the proposal. The follow-up email recaps the key points and says the proposal is coming.'},
+  {n:'Proposal sent',crm:'Proposal sent',act:'Change the lead status in the CRM',t:['proposal','pmail']},
+  {n:'Realignment call',m:'Optional, only if needed',dash:1,t:['proposal2'],note:'Only if the proposal needs to change after the call. The updated version is the same Proposal template.'},
+  {n:'Proposal validated',crm:'Proposal validated',act:'Change the lead status in the CRM',note:'Automation starts here: the contract and terms are generated from the validated proposal. No email at this step, the contract email follows.'}
+ ]},
+ {head:['Client timeline','shown to the client in Notion'],steps:[
+  {n:'Contract',m:'Sent, then signed',crm:'Contract sent',fill:1,t:['cmail','contract','terms']},
+  {n:'First payment',m:'Invoice goes out as soon as the contract is signed',crm:'Client',fill:1,t:['deposit','sent','remind','thanks','receipt','paid'],
+    note:'Once the contract is signed, automation reads it, creates the deliverables, Milestones and Step, then builds the client space.'},
+  {n:'Onboarding',m:'Client space is live',fill:1,t:['welcome','onboard','miles'],note:'An onboarding call can come first, to talk through preferences, then the questionnaire.'},
+  {n:'Deliverable 1',m:'One dot per deliverable, named after its type',fill:1,wide:1,
+    subs:['Two directions sent, with an explanation video','Review meeting','Direction confirmed','Final version sent, with an explanation video','Final review','Final tweaks (included, if needed)'],
+    t:['stepdone','fbrem']},
+  {n:'Deliverable n',m:'Same six stages, repeated for each deliverable in the contract',fill:1,rep:1,
+    note:'The number and types of deliverables come from the contract.'},
+  {n:'Handover call',fill:1,t:['handover']},
+  {n:'Final payment',m:'Balance',fill:1,t:['balance','sent','remind','thanks','receipt','paid'],
+    note:'Final files are released once the balance is paid.'},
+  {n:'Wrap-up',m:'Final files and receipts sent, offboarding',fill:1,t:['delivered','testi']}
+ ]}
+];
+
+var map=document.getElementById('map');
+phases.forEach(function(p){
+  var ph=el('div','phase');
+  var h=el('div','phead');h.appendChild(el('em',null,p.head[0]));h.appendChild(document.createTextNode('  ·  '+p.head[1]));
+  ph.appendChild(h);
+  var row=el('div','steps');
+  p.steps.forEach(function(s,i){
+    var c=el('div','step'+(s.wide?' wide':'')+(i===0&&p===phases[0]?' first':'')+(i===p.steps.length-1&&p===phases[1]?' last':''));
+    var dr=el('div','dotrow');dr.appendChild(el('span','dot'+(s.fill?' fill':'')+(s.dash?' dash':'')+(s.rep?' rep':'')));
+    c.appendChild(dr);
+    c.appendChild(el('div','sname',s.n));
+    if(s.m)c.appendChild(el('div','smeta',s.m));
+    if(s.crm)c.appendChild(el('div','crm','CRM: '+s.crm));
+    if(s.act){var ac=el('div','act');ac.appendChild(el('b',null,'ACTION'));ac.appendChild(document.createTextNode(s.act));c.appendChild(ac)}
+    if(s.subs){var ul=el('ul','subs');s.subs.forEach(function(x){ul.appendChild(el('li',null,x))});c.appendChild(ul)}
+    if(s.t){var ch=el('div','chips');s.t.forEach(function(k){ch.appendChild(chip(k))});c.appendChild(ch)}
+    if(s.note)c.appendChild(el('div','note',s.note));
+    row.appendChild(c);
+  });
+  ph.appendChild(row);map.appendChild(ph);
+});
+
+var lg=document.getElementById('legend');
+function ls(k,txt){var s=el('span');s.appendChild(k);s.appendChild(document.createTextNode(txt));lg.appendChild(s)}
+ls(el('i','k'),'Step before the client space');
+ls(el('i','k fill'),'Step on the client timeline');
+ls(el('i','k dash'),'Optional step');
+ls(el('i','k rep'),'Repeats per deliverable');
+[['doc','Document'],['mail','Email to client'],['me','Alert or action for me'],['form','Form or link']].forEach(function(x){
+  var c=el('span','chip '+x[0]);c.appendChild(el('b',null,TAG[x[0]]));c.appendChild(el('span',null,x[1]));lg.appendChild(c)
+});
+
+var any=document.getElementById('any');
+any.appendChild(el('h2',null,'Any time'));
+var r=el('div','row');['weekly','silent','deadline','change','tone'].forEach(function(k){r.appendChild(chip(k))});any.appendChild(r);
+any.appendChild(el('p',null,'The weekly summary arrives every Monday. The silence and deadline alerts fire whenever a client goes quiet or a date gets close. A change request is used whenever the scope grows. The tone and rules apply to every message and document.'));
+</script>
+</body>
+</html>
