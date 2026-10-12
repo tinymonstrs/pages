@@ -28,8 +28,8 @@ h1{font-size:22px;margin:0;font-weight:700;letter-spacing:-.01em;text-wrap:balan
 .k{width:12px;height:12px;border-radius:50%;box-sizing:border-box;border:2px solid var(--line);flex:none}
 .k.fill{background:var(--line)} .k.dash{border-style:dashed}
 .k.rep{box-shadow:0 0 0 3px var(--bg),0 0 0 4.5px var(--line)}
-.chip{display:inline-flex;align-items:baseline;gap:6px;font-size:12px;line-height:1.3;padding:5px 8px;border-radius:6px;border:1px solid var(--accent);text-decoration:none;color:var(--fg);max-width:100%;box-sizing:border-box}
-.chip b{font-size:9px;letter-spacing:.08em;font-weight:700;flex:none}
+.chip{display:inline-flex;align-items:baseline;gap:5px;font-size:11px;line-height:1.25;padding:4px 6px;border-radius:6px;border:1px solid var(--accent);text-decoration:none;color:var(--fg);max-width:100%;box-sizing:border-box}
+.chip b{font-size:8px;letter-spacing:.08em;font-weight:700;flex:none}
 .chip.doc{background:var(--accent);color:var(--accent-ink)}
 .chip.mail{background:var(--accent-soft);border-color:var(--accent-edge)}
 .chip.me{background:transparent}
@@ -38,13 +38,14 @@ h1{font-size:22px;margin:0;font-weight:700;letter-spacing:-.01em;text-wrap:balan
 .chip.mail b,.chip.me b,.chip.form b{color:var(--accent)}
 .legend .chip{pointer-events:none}
 .scroll{overflow-x:auto;padding-bottom:14px;border-top:1px solid var(--border)}
-.map{display:flex;gap:28px;width:max-content;padding-top:18px}
+.map{display:flex;flex-direction:column;gap:20px;width:max-content;padding-top:14px}
 .phase{display:flex;flex-direction:column;gap:14px}
-.phead{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:2px solid var(--border);padding-bottom:6px}
+.phead{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:2px solid var(--border);padding-bottom:6px}
 .phead em{font-style:normal;color:var(--fg)}
 .steps{display:flex}
-.step{width:178px;flex:none;position:relative;display:flex;flex-direction:column;gap:10px;padding-top:0}
-.step.wide{width:250px}
+.scroll{overflow-y:hidden}
+.step{width:132px;flex:none;position:relative;display:flex;flex-direction:column;gap:10px;padding-top:0}
+.step.wide{width:190px}
 .step::before{content:"";position:absolute;top:8px;left:0;right:0;height:2px;background:var(--line)}
 .step.first::before{left:50%}
 .step.last::before{right:50%}
@@ -52,15 +53,15 @@ h1{font-size:22px;margin:0;font-weight:700;letter-spacing:-.01em;text-wrap:balan
 .dot{width:18px;height:18px;border-radius:50%;box-sizing:border-box;border:2px solid var(--line);background:var(--bg)}
 .dot.fill{background:var(--line)} .dot.dash{border-style:dashed}
 .dot.rep{box-shadow:0 0 0 3px var(--bg),0 0 0 4.5px var(--line)}
-.sname{font-weight:700;font-size:14px;text-align:center;padding-inline:8px;line-height:1.25}
-.smeta{font-size:12px;color:var(--muted);text-align:center;padding-inline:8px;margin-top:-6px;line-height:1.35}
-.crm{align-self:center;font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--muted);border:1px solid var(--border);background:var(--panel);border-radius:99px;padding:3px 8px}
-.chips{display:flex;flex-direction:column;gap:6px;align-items:flex-start;padding-inline:8px}
-.act{font-size:12px;line-height:1.35;padding-inline:8px;color:var(--fg)}
+.sname{font-weight:700;font-size:13px;text-align:center;padding-inline:8px;line-height:1.25}
+.smeta{font-size:11px;color:var(--muted);text-align:center;padding-inline:8px;margin-top:-6px;line-height:1.35}
+.crm{align-self:center;font-size:9px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--muted);border:1px solid var(--border);background:var(--panel);border-radius:99px;padding:3px 8px}
+.chips{display:flex;flex-direction:column;gap:5px;align-items:flex-start;padding-inline:8px}
+.act{font-size:11px;line-height:1.35;padding-inline:8px;color:var(--fg)}
 .act b{font-size:9px;letter-spacing:.08em;color:var(--muted);margin-right:6px}
-.note{font-size:12px;color:var(--muted);line-height:1.4;padding-inline:8px;border-left:2px solid var(--border);margin-inline:8px}
+.note{font-size:11px;color:var(--muted);line-height:1.4;padding-inline:8px;border-left:2px solid var(--border);margin-inline:8px}
 .subs{margin:0;padding:0 8px;list-style:none;display:flex;flex-direction:column;gap:0}
-.subs li{position:relative;font-size:12px;line-height:1.35;padding:0 0 9px 20px}
+.subs li{position:relative;font-size:11px;line-height:1.35;padding:0 0 9px 20px}
 .subs li::before{content:"";position:absolute;left:4px;top:5px;bottom:-5px;width:1.5px;background:var(--border)}
 .subs li:last-child::before{display:none}
 .subs li::after{content:"";position:absolute;left:0;top:4px;width:9px;height:9px;border-radius:50%;box-sizing:border-box;border:1.5px solid var(--line);background:var(--bg)}
@@ -199,6 +200,8 @@ var any=document.getElementById('any');
 any.appendChild(el('h2',null,'Any time'));
 var r=el('div','row');['weekly','silent','deadline','change','tone'].forEach(function(k){r.appendChild(chip(k))});any.appendChild(r);
 any.appendChild(el('p',null,'The weekly summary arrives every Monday. The silence and deadline alerts fire whenever a client goes quiet or a date gets close. A change request is used whenever the scope grows. The tone and rules apply to every message and document.'));
+function fit(){var sc=document.querySelector('.scroll'),m=document.getElementById('map');m.style.zoom=1;var w=m.scrollWidth,a=sc.clientWidth;if(w>a)m.style.zoom=Math.max(.6,a/w)}
+fit();addEventListener('resize',fit);addEventListener('load',fit);
 </script>
 </body>
 </html>
