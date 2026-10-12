@@ -98,7 +98,7 @@ if(/[?&]embed/.test(location.search))document.documentElement.classList.add("emb
 var T={
   inquiry:['mail','New inquiry received (auto-reply)',null],
   lead:['me','New lead in the CRM',null],
-  disc:['form','Discovery call questionnaire (link, made in Notion)',null],
+  booked:['mail','Call booked, confirmation and how to prepare',null],
   minutes:['doc','Discovery call minutes',null],
   dfollow:['mail','Discovery call follow-up',null],
   pmail:['mail','Proposal email',null],
@@ -141,8 +141,8 @@ function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cl
 
 var phases=[
  {head:['Before the client space','tracked as the CRM status'],steps:[
-  {n:'Request form',m:'Prospect fills the form',crm:'New request',t:['disc','inquiry','lead']},
-  {n:'Discovery call',m:'45 minutes',crm:'Call booked',t:['minutes','dfollow'],note:'The minutes help me write the proposal. The follow-up email recaps the key points and says the proposal is coming.'},
+  {n:'Request form',m:'Prospect fills the form',crm:'New request',t:['inquiry','lead']},
+  {n:'Discovery call',m:'45 minutes',crm:'Call booked',t:['booked','minutes','dfollow'],note:'The minutes help me write the proposal. The follow-up email recaps the key points and says the proposal is coming.'},
   {n:'Proposal sent',crm:'Proposal sent',act:'Change the lead status in the CRM',t:['proposal','pmail']},
   {n:'Realignment call',m:'Optional, only if needed',dash:1,t:['proposal2'],note:'Only if the proposal needs to change after the call. The updated version is the same Proposal template.'},
   {n:'Proposal validated',crm:'Proposal validated',act:'Change the lead status in the CRM',note:'Automation starts here: the contract and terms are generated from the validated proposal. No email at this step, the contract email follows.'}
