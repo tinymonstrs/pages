@@ -62,6 +62,8 @@ li.current .label{color:var(--current);font-weight:700}
   var showNames=q.get('names')!=='0';
   var out=document.getElementById('out');
   var raw=q.getAll('c');
+  var demo=false;
+  if(!raw.length){demo=true;raw=['Alba_Coffee~Onboarding,First_payment,Discovery_call,Design_direction,First_design_review,Design_created,Delivery,Launch~4'];}
   function clean(s){return s.replace(/_/g,' ').trim()}
   var n=0;
   raw.forEach(function(r){
@@ -89,7 +91,8 @@ li.current .label{color:var(--current);font-weight:700}
     });
     card.appendChild(ol);out.appendChild(card);
   });
-  if(!n){var e=document.createElement('div');e.className='empty';e.textContent='No timeline to show yet.';out.appendChild(e)}
+  if(demo){var e=document.createElement('div');e.className='empty';e.textContent='Sample shown. The real timeline appears when the link carries a client, for example ?c=Name~Step1,Step2,Step3~1';out.appendChild(e)}
+  else if(!n){var e2=document.createElement('div');e2.className='empty';e2.textContent='No timeline to show yet.';out.appendChild(e2)}
 })();
 </script>
 </body>
