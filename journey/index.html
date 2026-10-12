@@ -34,7 +34,6 @@ h1{font-size:22px;margin:0;font-weight:700;letter-spacing:-.01em;text-wrap:balan
 .chip.mail{background:var(--accent-soft);border-color:var(--accent-edge)}
 .chip.me{background:transparent}
 .chip.form{background:transparent;border-style:dashed}
-a.chip:hover{filter:brightness(1.12);outline:2px solid var(--accent);outline-offset:1px}
 .chip.doc b{opacity:.85}
 .chip.mail b,.chip.me b,.chip.form b{color:var(--accent)}
 .legend .chip{pointer-events:none}
@@ -80,7 +79,7 @@ html.embed body{padding-block:6px}
 <div class="wrap">
   <header>
     <h1>Client journey map</h1>
-    <p class="sub">The whole path from a request to the final files. The line is the process. Everything hanging under a step is a template you use at that moment. Click a template to open it in Notion.</p>
+    <p class="sub">The whole path from a request to the final files. The line is the process. Everything hanging under a step is a template you use at that moment.</p>
   </header>
 
   <div class="legend" id="legend"></div>
@@ -95,39 +94,38 @@ html.embed body{padding-block:6px}
 
 <script>
 if(/[?&]embed/.test(location.search))document.documentElement.classList.add("embed");
-var N='https://app.notion.com/p/';
 var T={
-  inquiry:['mail','New inquiry received (auto-reply)',N+'3f791e5d1d648179be51c1c23eaba5a0'],
-  lead:['me','New lead in the CRM',N+'3f791e5d1d64816ba64cee32d50c7520'],
+  inquiry:['mail','New inquiry received (auto-reply)',null],
+  lead:['me','New lead in the CRM',null],
   disc:['form','Discovery call questionnaire (link, made in Notion)',null],
-  minutes:['doc','Discovery call minutes',N+'3f791e5d1d6481a4889eef38a2e5071d'],
-  dfollow:['mail','Discovery call follow-up',N+'3f791e5d1d6481c19797e987ceca9494'],
-  pmail:['mail','Proposal email',N+'3f791e5d1d648178b7c0fbcf56064c69'],
-  cmail:['mail','Contract email',N+'3f791e5d1d6481cf9df8c16cb240d258'],
-  proposal2:['doc','Proposal',N+'3f791e5d1d6481ffbad5d199d9fb469c'],
-  proposal:['doc','Proposal',N+'3f791e5d1d6481ffbad5d199d9fb469c'],
-  contract:['doc','Contract',N+'3f791e5d1d6481f8aeb8cb3aff18aeae'],
-  terms:['doc','Terms and conditions',N+'3f791e5d1d648174962ef2d4f0dff4dd'],
-  deposit:['doc','Deposit invoice',N+'3f791e5d1d64816d9500df443455f38f'],
-  balance:['doc','Balance invoice',N+'3f791e5d1d6481f7a3dfc4eda8cb8ba2'],
-  sent:['mail','Invoice sent',N+'3f791e5d1d6481fb89adc5f5e3a59b8e'],
-  remind:['mail','Payment reminder and overdue notice',N+'3f791e5d1d6481c48ac3e37d7d605c9f'],
-  thanks:['mail','Payment received, thank you',N+'3f791e5d1d64811e8e2cfb78a29487ce'],
-  receipt:['doc','Receipt / payment confirmation',N+'3f791e5d1d6481a7bd88e6f8d5141d1e'],
-  paid:['me','Invoice paid / overdue',N+'3f791e5d1d6481d992eed82ee2c963bd'],
-  welcome:['mail','Welcome and your client space link',N+'3f791e5d1d648188b7c0e801610a92b8'],
+  minutes:['doc','Discovery call minutes',null],
+  dfollow:['mail','Discovery call follow-up',null],
+  pmail:['mail','Proposal email',null],
+  cmail:['mail','Contract email',null],
+  proposal2:['doc','Proposal',null],
+  proposal:['doc','Proposal',null],
+  contract:['doc','Contract',null],
+  terms:['doc','Terms and conditions',null],
+  deposit:['doc','Deposit invoice',null],
+  balance:['doc','Balance invoice',null],
+  sent:['mail','Invoice sent',null],
+  remind:['mail','Payment reminder and overdue notice',null],
+  thanks:['mail','Payment received, thank you',null],
+  receipt:['doc','Receipt / payment confirmation',null],
+  paid:['me','Invoice paid / overdue',null],
+  welcome:['mail','Welcome and your client space link',null],
   onboard:['form','Onboarding questionnaire (link, made in Notion)',null],
-  miles:['doc','Project timeline milestones per package',N+'3f791e5d1d64815f8839e60b76353a35'],
-  stepdone:['mail','Step completed / timeline update',N+'3f791e5d1d648113945dc7dd0a1bbf7e'],
-  fbrem:['mail','Feedback reminder',N+'3f791e5d1d6481f3953ccab1d01e61da'],
-  handover:['doc','Project completion and handover note',N+'3f791e5d1d6481c99e7dc6830219d639'],
-  delivered:['mail','Project delivered',N+'3f791e5d1d648127a679f37306025f90'],
-  testi:['mail','Feedback / testimonial request',N+'3f791e5d1d64813b93e5da17042775ec'],
-  change:['doc','Change request / add-on agreement',N+'3f791e5d1d648167b8c9d61c321811b9'],
-  silent:['me','Client has not replied in X days',N+'3f791e5d1d64817da03bf2bda9dc929b'],
-  deadline:['me','Deadline coming up',N+'3f791e5d1d64813fbd75c88797945c89'],
-  weekly:['me','Weekly summary',N+'3f791e5d1d6481559a26d15a7166a2a1'],
-  tone:['doc','Tone and rules',N+'3f791e5d1d648174b6decb214dd85dd3']
+  miles:['doc','Project timeline milestones per package',null],
+  stepdone:['mail','Step completed / timeline update',null],
+  fbrem:['mail','Feedback reminder',null],
+  handover:['doc','Project completion and handover note',null],
+  delivered:['mail','Project delivered',null],
+  testi:['mail','Feedback / testimonial request',null],
+  change:['doc','Change request / add-on agreement',null],
+  silent:['me','Client has not replied in X days',null],
+  deadline:['me','Deadline coming up',null],
+  weekly:['me','Weekly summary',null],
+  tone:['doc','Tone and rules',null]
 };
 var TAG={doc:'DOC',mail:'MAIL',me:'ME',form:'FORM'};
 function chip(k){
